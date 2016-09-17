@@ -24,5 +24,17 @@
         android:layout_height="60dp"
         android:text="start pushreceiver"
         />
+    <Button
+        android:id="@+id/main_serial_user"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="serial user"
+        />
+    <Button
+        android:id="@+id/main_unserial_user"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="unserial user"
+        />
 
 </LinearLayout>

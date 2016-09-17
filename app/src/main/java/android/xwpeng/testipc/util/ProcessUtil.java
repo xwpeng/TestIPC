@@ -1,4 +1,4 @@
-package android.xwpeng.testipc;
+package android.xwpeng.testipc.util;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.xwpeng.testipc.util.ProcessUtil;
 
 /**
  * Created by xwpeng on 16-8-29.
