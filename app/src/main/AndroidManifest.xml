@@ -21,6 +21,9 @@
         <activity
             android:name=".PushReceiverActivity"
             android:process=":pushcore" />
+        <service
+            android:name=".PushService"
+            android:process=":pushcore" />
     </application>
 
 </manifest>

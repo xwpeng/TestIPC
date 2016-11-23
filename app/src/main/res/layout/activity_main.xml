@@ -25,4 +25,33 @@
         android:text="start pushreceiver"
         />
 
+    <Button
+        android:id="@+id/main_add_book"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="aidl_add_book"
+        />
+
+    <Button
+        android:id="@+id/main_get_books"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="aidl_get_books"
+        />
+
+
+    <Button
+        android:id="@+id/main_add_user"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="aidl_add_user"
+        />
+
+    <Button
+        android:id="@+id/main_get_users"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="aidl_get_users"
+        />
+
 </LinearLayout>
