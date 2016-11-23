@@ -42,3 +42,5 @@ captures/
 workspace.xml
 tasks.xml
 
+/.idea/
+将删除 app/src/main/res/drawable/
