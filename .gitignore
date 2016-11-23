@@ -38,6 +38,3 @@ captures/
 
 # Keystore files
 *.jks
-*.iws
-workspace.xml
-tasks.xml
