@@ -11,10 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.xwpeng.testipc.entity.Book;
-import android.xwpeng.testipc.entity.User2;
-
-import java.util.List;
 import android.xwpeng.testipc.entity.User;
+import android.xwpeng.testipc.entity.User2;
 import android.xwpeng.testipc.util.ProcessUtil;
 
 import java.io.File;
@@ -23,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -34,15 +33,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.main_start_email).setOnClickListener(this);
-        findViewById(R.id.main_start_push_receiver).setOnClickListener(this);
-        findViewById(R.id.main_add_book).setOnClickListener(this);
+        Log.e(TAG, "processname: " + ProcessUtil.getProcessName() + " pid: " + Process.myPid());
+        findViewById(R.id.main_start_public).setOnClickListener(this);
+        findViewById(R.id.main_bind_push_service).setOnClickListener(this);
+        findViewById(R.id.main_add_book_in).setOnClickListener(this);
+        findViewById(R.id.main_add_book_out).setOnClickListener(this);
+        findViewById(R.id.main_add_book_inout).setOnClickListener(this);
         findViewById(R.id.main_get_books).setOnClickListener(this);
         findViewById(R.id.main_add_user).setOnClickListener(this);
         findViewById(R.id.main_get_users).setOnClickListener(this);
         findViewById(R.id.main_serial_user).setOnClickListener(this);
         findViewById(R.id.main_unserial_user).setOnClickListener(this);
-        Log.e(TAG, "processname: " + ProcessUtil.getProcessName() + " pid: " + Process.myPid());
+    }
+
+    private void initConn() {
         mConn = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
@@ -54,79 +58,143 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         };
-        bindService(new Intent(MainActivity.this, PushService.class), mConn, BIND_AUTO_CREATE);
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.main_start_email:
-                startActivity(new Intent(MainActivity.this, EmailActivity.class));
+            case R.id.main_start_public:
+                startActivity(new Intent(MainActivity.this, PublicActivity.class));
                 break;
-            case R.id.main_start_push_receiver:
-                startActivity(new Intent(MainActivity.this, PushReceiverActivity.class));
+            case R.id.main_bind_push_service:
+                initConn();
+                bindService(new Intent(MainActivity.this, PushService.class), mConn, BIND_AUTO_CREATE);
                 break;
-            case R.id.main_add_book:
-                if (mIBookManager != null) {
-                    Book b = new Book();
-                    b.id = 2;
-                    b.name = "mainBook";
-                    b.price = 999.00;
-                    try {
-                        mIBookManager.addBook(b);
-                    } catch (RemoteException e) {
-                        Log.e(TAG, "onclick", e);
-                    }
-                }
+            case R.id.main_add_book_in:
+                addBook(1);
+                break;
+            case R.id.main_add_book_out:
+                addBook(2);
+                break;
+            case R.id.main_add_book_inout:
+                addBook(3);
                 break;
             case R.id.main_get_books:
-                if (mIBookManager == null) return;
-                try {
-                    List<Book> books = mIBookManager.getBookList();
-                    if (books != null)
-                        for (Book b : books) {
-                            Log.d(TAG,b.toString());
-                        }
-                } catch (RemoteException e) {
-                    Log.e(TAG, "onclick", e);
-                }
+                getBooks();
                 break;
             case R.id.main_add_user:
-                if (mIBookManager != null) {
-                    User2 u = new User2();
-                    Book b = new Book();
-                    b.id = 2;
-                    b.name = "mainBook";
-                    b.price = 999.00;
-                    u.book = b;
-                    u.userId = 2;
-                    u.userName = "mainUser";
-                    u.gender = "female";
-                    try {
-                        mIBookManager.addUser(u);
-                    } catch (RemoteException e) {
-                        Log.e(TAG, "onclick", e);
-                    }
-                }
+                addUser();
                 break;
             case R.id.main_get_users:
-                if (mIBookManager == null) return;
-                try {
-                    List<User2> users = mIBookManager.getUserList();
-                    if (users != null)
-                        for (User2 u : users) {
-                            Log.d(TAG,u.toString());
-                        }
-                } catch (RemoteException e) {
-                    Log.e(TAG, "onclick", e);
-                }
+                getUsers();
             case R.id.main_serial_user:
                 serivalUser();
                 break;
             case R.id.main_unserial_user:
                 unSerialUser();
                 break;
+        }
+    }
+
+    private void addBook(int i) {
+        if (mIBookManager == null) {
+            initConn();
+            bindService(new Intent(MainActivity.this, PushService.class), mConn, BIND_AUTO_CREATE);
+        }
+        if (mIBookManager == null) return;
+        Book b = new Book();
+        b.id = 2;
+        b.price = 999.00;
+        Book returnB;
+        try {
+            switch (i) {
+                case 1:
+                    Log.e(TAG, "in->origin hash:" + b.hashCode());
+                    b.name = "mainBookIn";
+                    returnB = mIBookManager.addBookIn(b);
+                    Log.e(TAG, "in->origin added hash:" + b.hashCode());
+                    Log.e(TAG, "in->origin added:" + b.toString());
+                    Log.e(TAG, "in->return hash:" + returnB.hashCode());
+                    Log.e(TAG, "in->return:" + returnB.toString());
+                    break;
+                case 2:
+                    Log.e(TAG, "out->origin hash:" + b.hashCode());
+                    b.name = "mainBookOut";
+                    returnB = mIBookManager.addBookOut(b);
+                    Log.e(TAG, "out->origin added hash:" + b.hashCode());
+                    Log.e(TAG, "out->origin added:" + b.toString());
+                    Log.e(TAG, "out->return hash:" + returnB.hashCode());
+                    Log.e(TAG, "out->return:" + returnB.toString());
+                    break;
+                case 3:
+                    Log.e(TAG, "inout->origin hash:" + b.hashCode());
+                    b.name = "mainBookInOut";
+                    returnB = mIBookManager.addBookInOut(b);
+                    Log.e(TAG, "inout->origin added hash:" + b.hashCode());
+                    Log.e(TAG, "inout->origin added:" + b.toString());
+                    Log.e(TAG, "inout->return hash:" + returnB.hashCode());
+                    Log.e(TAG, "inout->return:" + returnB.toString());
+                    break;
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "onclick", e);
+        }
+    }
+
+    private void getBooks() {
+        if (mIBookManager == null) {
+            initConn();
+            bindService(new Intent(MainActivity.this, PushService.class), mConn, BIND_AUTO_CREATE);
+        }
+        if (mIBookManager == null) return;
+        try {
+            List<Book> books = mIBookManager.getBookList();
+            if (books != null)
+                for (Book b : books) {
+                    Log.d(TAG, b.toString());
+                }
+        } catch (RemoteException e) {
+            Log.e(TAG, "onclick", e);
+        }
+    }
+
+    private void addUser() {
+        if (mIBookManager == null) {
+            initConn();
+            bindService(new Intent(MainActivity.this, PushService.class), mConn, BIND_AUTO_CREATE);
+        }
+        if (mIBookManager == null) return;
+        User2 u = new User2();
+        Book b = new Book();
+        b.id = 2;
+        b.name = "mainBook";
+        b.price = 999.00;
+        u.book = b;
+        u.userId = 2;
+        u.userName = "mainUser";
+        u.gender = "female";
+        try {
+            mIBookManager.addUser(u);
+        } catch (RemoteException e) {
+            Log.e(TAG, "onclick", e);
+        }
+    }
+
+    private void getUsers() {
+        if (mIBookManager == null) {
+            initConn();
+            bindService(new Intent(MainActivity.this, PushService.class), mConn, BIND_AUTO_CREATE);
+        }
+        if (mIBookManager == null) return;
+        try {
+            List<User2> users = mIBookManager.getUserList();
+            if (users != null)
+                for (User2 u : users) {
+                    Log.d(TAG, u.toString());
+                }
+        } catch (RemoteException e) {
+            Log.e(TAG, "onclick", e);
         }
     }
 
@@ -147,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void unSerialUser() {
         try {
             ObjectInputStream ins = new ObjectInputStream(new FileInputStream(getUserFile()));
-            User user = (User)ins.readObject();
+            User user = (User) ins.readObject();
             Log.e(TAG, user.toString());
         } catch (IOException e) {
             e.printStackTrace();

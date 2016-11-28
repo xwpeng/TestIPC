@@ -15,9 +15,25 @@ public class Book implements Parcelable{
     public Book(){}
 
     protected Book(Parcel in) {
+       readFromParcel(in);
+    }
+
+    public void readFromParcel(Parcel in) {
         id = in.readInt();
         name = in.readString();
         price = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeDouble(price);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {
@@ -31,18 +47,6 @@ public class Book implements Parcelable{
             return new Book[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeDouble(price);
-    }
 
     @Override
     public String toString() {

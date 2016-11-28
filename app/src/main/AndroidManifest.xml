@@ -16,11 +16,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EmailActivity"
-            android:process="com.xwpeng.global.email" />
-        <activity
-            android:name=".PushReceiverActivity"
-            android:process=":pushcore" />
+            android:name=".PublicActivity"
+            android:process="com.xwpeng.global" />
+
         <service
             android:name=".PushService"
             android:process=":pushcore" />

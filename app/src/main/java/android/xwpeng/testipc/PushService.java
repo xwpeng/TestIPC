@@ -3,11 +3,13 @@ package android.xwpeng.testipc;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.Process;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.xwpeng.testipc.entity.Book;
 import android.xwpeng.testipc.entity.User2;
+import android.xwpeng.testipc.util.ProcessUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class PushService extends Service {
     @Override
     public void onCreate() {
         Log.d(TAG, "onCreate");
+        Log.e(TAG, "processname: " + ProcessUtil.getProcessName() + " pid: " + Process.myPid());
         if (mBooks == null) {
             mBooks = new ArrayList<>();
             Book book = new Book();
@@ -80,8 +83,30 @@ public class PushService extends Service {
         }
 
         @Override
-        public void addBook(Book b) throws RemoteException {
+        public Book addBookIn(Book b) throws RemoteException {
+            Log.e(TAG, "in->receive:" + b.toString());
+            Log.e(TAG, "in->receive book's hash:" + b.hashCode());
             mBooks.add(b);
+            b.name = "pushAddIn";
+            return b;
+        }
+
+        @Override
+        public Book addBookOut(Book b) throws RemoteException {
+            Log.e(TAG, "out->receive:" + b.toString());
+            Log.e(TAG, "out->receive book's hash:" + b.hashCode());
+            mBooks.add(b);
+            b.name = "pushAddOut";
+            return b;
+        }
+
+        @Override
+        public Book addBookInOut(Book b) throws RemoteException {
+            Log.e(TAG, "inout->receive:" + b.toString());
+            Log.e(TAG, "inout->receive book's hash:" + b.hashCode());
+            mBooks.add(b);
+            b.name = "pushAddInOut";
+            return b;
         }
 
         @Override

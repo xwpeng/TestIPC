@@ -13,9 +13,11 @@ interface IBookManager {
     void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat,
             double aDouble, String aString);
 
-         List<Book> getBookList();
-         void addBook(in Book b);
+         List< Book> getBookList();
+         Book addBookIn(in Book book);
+         Book addBookOut(out Book book);
+         Book addBookInOut(inout Book book);
 
          List<User2> getUserList();
-                  void addUser(in User2 u);
+         void addUser(in User2 u);
 }

@@ -6,42 +6,51 @@
     android:orientation="vertical"
     tools:context="android.xwpeng.testipc.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Main!" />
-
     <Button
-        android:id="@+id/main_start_email"
+        android:id="@+id/main_start_public"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:text="start email"
+        android:text="开启公有进程"
         />
 
     <Button
-        android:id="@+id/main_start_push_receiver"
+        android:id="@+id/main_bind_push_service"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:text="start pushreceiver"
+        android:text="绑定pushService,开启私有进程．"
         />
     <Button
         android:id="@+id/main_serial_user"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:text="serial user"
+        android:text="serial序列化"
         />
     <Button
         android:id="@+id/main_unserial_user"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:text="unserial user"
+        android:text="serial反序列化"
         />
 
     <Button
-        android:id="@+id/main_add_book"
+        android:id="@+id/main_add_book_in"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:text="aidl_add_book"
+        android:text="aidl_add_book_in"
+        />
+
+    <Button
+        android:id="@+id/main_add_book_out"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="aidl_add_book_out"
+        />
+
+    <Button
+        android:id="@+id/main_add_book_inout"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="aidl_add_book_inout"
         />
 
     <Button
