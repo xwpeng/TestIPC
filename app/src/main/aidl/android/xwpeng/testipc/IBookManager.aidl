@@ -2,6 +2,7 @@
 package android.xwpeng.testipc;
 import android.xwpeng.testipc.entity.Book;
 import android.xwpeng.testipc.entity.User2;
+import android.xwpeng.testipc.IOnNewBookArrivedListener;
 
 // Declare any non-default types here with import statements
 
@@ -20,4 +21,7 @@ interface IBookManager {
 
          List<User2> getUserList();
          void addUser(in User2 u);
+
+         void registerListener(in IOnNewBookArrivedListener listener);
+         void unregisterListener(in IOnNewBookArrivedListener listener);
 }

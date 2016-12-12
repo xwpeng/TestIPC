@@ -23,7 +23,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-
+/**
+ * main activity,launch activity,some buttons access functions
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private final static String TAG = MainActivity.class.getSimpleName();
     private ServiceConnection mConn;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.main_get_users).setOnClickListener(this);
         findViewById(R.id.main_serial_user).setOnClickListener(this);
         findViewById(R.id.main_unserial_user).setOnClickListener(this);
+        findViewById(R.id.main_to_newbookrecevice).setOnClickListener(this);
     }
 
     private void initConn() {
@@ -81,7 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 addBook(3);
                 break;
             case R.id.main_get_books:
-                getBooks();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getBooks();
+                    }
+                }).start();
                 break;
             case R.id.main_add_user:
                 addUser();
@@ -93,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_unserial_user:
                 unSerialUser();
+                break;
+            case R.id.main_to_newbookrecevice:
+                startActivity(new Intent(MainActivity.this, NewBookReceiverActivity.class));
                 break;
         }
     }

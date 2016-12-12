@@ -7,6 +7,7 @@ import android.util.Log;
 import android.xwpeng.testipc.util.ProcessUtil;
 
 /**
+ * test public process
  * Created by xwpeng on 16-8-29.
  */
 public class PublicActivity extends AppCompatActivity {

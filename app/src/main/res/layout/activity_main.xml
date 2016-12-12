@@ -1,78 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="android.xwpeng.testipc.MainActivity">
+    android:scrollbars="vertical">
 
-    <Button
-        android:id="@+id/main_start_public"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="开启公有进程"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="android.xwpeng.testipc.MainActivity">
 
-    <Button
-        android:id="@+id/main_bind_push_service"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="绑定pushService,开启私有进程．"
-        />
-    <Button
-        android:id="@+id/main_serial_user"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="serial序列化"
-        />
-    <Button
-        android:id="@+id/main_unserial_user"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="serial反序列化"
-        />
+        <Button
+            android:id="@+id/main_start_public"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="开启公有进程" />
 
-    <Button
-        android:id="@+id/main_add_book_in"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="aidl_add_book_in"
-        />
+        <Button
+            android:id="@+id/main_bind_push_service"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="绑定pushService,开启私有进程" />
 
-    <Button
-        android:id="@+id/main_add_book_out"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="aidl_add_book_out"
-        />
+        <Button
+            android:id="@+id/main_serial_user"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="serial序列化" />
 
-    <Button
-        android:id="@+id/main_add_book_inout"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="aidl_add_book_inout"
-        />
+        <Button
+            android:id="@+id/main_unserial_user"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="serial反序列化" />
 
-    <Button
-        android:id="@+id/main_get_books"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="aidl_get_books"
-        />
+        <Button
+            android:id="@+id/main_add_book_in"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="aidl_add_book_in" />
+
+        <Button
+            android:id="@+id/main_add_book_out"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="aidl_add_book_out" />
+
+        <Button
+            android:id="@+id/main_add_book_inout"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="aidl_add_book_inout" />
+
+        <Button
+            android:id="@+id/main_get_books"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="aidl_get_books" />
 
 
-    <Button
-        android:id="@+id/main_add_user"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="aidl_add_user"
-        />
+        <Button
+            android:id="@+id/main_add_user"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="aidl_add_user" />
 
-    <Button
-        android:id="@+id/main_get_users"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:text="aidl_get_users"
-        />
+        <Button
+            android:id="@+id/main_get_users"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="aidl_get_users" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/main_to_newbookrecevice"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="forward2NewBookReceiveActivity" />
+
+    </LinearLayout>
+</ScrollView>
