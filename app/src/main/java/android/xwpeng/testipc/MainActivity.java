@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.main_serial_user).setOnClickListener(this);
         findViewById(R.id.main_unserial_user).setOnClickListener(this);
         findViewById(R.id.main_to_newbookrecevice).setOnClickListener(this);
+        findViewById(R.id.main_test_tcp).setOnClickListener(this);
     }
 
     private void initConn() {
@@ -104,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_to_newbookrecevice:
                 startActivity(new Intent(MainActivity.this, NewBookReceiverActivity.class));
+                break;
+            case R.id.main_test_tcp:
+                startActivity(new Intent(MainActivity.this, TcpClientActivity.class));
                 break;
         }
     }

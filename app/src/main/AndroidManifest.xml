@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="android.xwpeng.testipc">
-    <permission android:name="android.xwpeng.permission.ACCESS_PUSH_SERVICE"
-        android:protectionLevel="normal"/>
-    <uses-permission android:name="android.xwpeng.permission.ACCESS_PUSH_SERVICE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <permission
+        android:name="android.xwpeng.permission.ACCESS_PUSH_SERVICE"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="android.xwpeng.permission.ACCESS_PUSH_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -25,9 +28,16 @@
             android:process="com.xwpeng.global" />
         <activity android:name=".NewBookReceiverActivity" />
 
+        <activity android:name=".TcpClientActivity" />
+
+
         <service
             android:name=".PushService"
             android:process=":pushcore" />
+
+        <service
+            android:name=".TCPServerService"
+            android:process=":tcpServer" />
     </application>
 
 </manifest>

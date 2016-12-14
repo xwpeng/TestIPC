@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,14 +14,15 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Random;
 
 /**
  * Created by xwpeng on 16-12-11.
  */
 
 public class TCPServerService extends Service {
-    private AtomicBoolean mIsServiceDestoryed = new AtomicBoolean(false);
+    private final static String TAG = "TCPServerService";
+    private boolean mIsServiceDestoryed;
     private String[] mDefinedMeaasges = new String[]{
             "Hello World!",
             "how are you",
@@ -33,6 +35,7 @@ public class TCPServerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        new Thread(new TcpServer()).start();
     }
 
     @Nullable
@@ -43,7 +46,7 @@ public class TCPServerService extends Service {
 
     @Override
     public void onDestroy() {
-        mIsServiceDestoryed.set(true);
+        mIsServiceDestoryed = true;
         super.onDestroy();
     }
 
@@ -55,24 +58,17 @@ public class TCPServerService extends Service {
             try {
                 serverSocket = new ServerSocket(8688);
             } catch (IOException e) {
-                System.err.println("establish tcp server failed, port:8868");
+                Log.e(TAG, "establish tcp server failed, port:8868");
                 e.printStackTrace();
                 return;
             }
-            while (!mIsServiceDestoryed.get()) {
                 try {
-                    Socket client = serverSocket.accept();
-                    System.out.println("accept");
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //todo responseClient
-                        }
-                    }).start();
+                    final Socket client = serverSocket.accept();
+                    Log.d(TAG, "accpet");
+                    responseClient(client);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
         }
     }
 
@@ -80,13 +76,25 @@ public class TCPServerService extends Service {
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(client.getOutputStream())), true);
         out.println("welcome to chat room");
-        while (!mIsServiceDestoryed.get()) {
+        while (!mIsServiceDestoryed) {
             String str = in.readLine();
-            System.out.println("message from client: " + str);
+            Log.d(TAG, "message from client: " + str);
             if (str == null) {
-                // client id disconnent
+                // client disconnent
+                Log.d(TAG, "client quit");
                 break;
             }
+            int i = new Random().nextInt(mDefinedMeaasges.length);
+            String msg = mDefinedMeaasges[i];
+            out.println(msg);
+            Log.d(TAG, "send : " + msg);
         }
+        if (out != null) {
+            out.close();
+        }
+        if (in != null) {
+            in.close();
+        }
+        client.close();
     }
 }
