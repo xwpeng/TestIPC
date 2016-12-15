@@ -13,6 +13,11 @@ import android.view.View;
 import android.xwpeng.testipc.entity.Book;
 import android.xwpeng.testipc.entity.User;
 import android.xwpeng.testipc.entity.User2;
+import android.xwpeng.testipc.service.PushService;
+import android.xwpeng.testipc.ui.NewBookReceiverActivity;
+import android.xwpeng.testipc.ui.PublicActivity;
+import android.xwpeng.testipc.ui.TBinderPoolActivity;
+import android.xwpeng.testipc.ui.TcpClientActivity;
 import android.xwpeng.testipc.util.ProcessUtil;
 
 import java.io.File;
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.main_unserial_user).setOnClickListener(this);
         findViewById(R.id.main_to_newbookrecevice).setOnClickListener(this);
         findViewById(R.id.main_test_tcp).setOnClickListener(this);
+        findViewById(R.id.main_test_binderpool).setOnClickListener(this);
     }
 
     private void initConn() {
@@ -108,6 +114,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_test_tcp:
                 startActivity(new Intent(MainActivity.this, TcpClientActivity.class));
+                break;
+            case R.id.main_test_binderpool:
+                startActivity(new Intent(MainActivity.this, TBinderPoolActivity.class));
                 break;
         }
     }

@@ -1,4 +1,4 @@
-package android.xwpeng.testipc;
+package android.xwpeng.testipc.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.xwpeng.testipc.R;
+import android.xwpeng.testipc.service.TCPServerService;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

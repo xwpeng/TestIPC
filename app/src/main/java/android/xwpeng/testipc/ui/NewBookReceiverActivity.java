@@ -1,4 +1,4 @@
-package android.xwpeng.testipc;
+package android.xwpeng.testipc.ui;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,7 +12,10 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.xwpeng.testipc.IBookManager;
+import android.xwpeng.testipc.IOnNewBookArrivedListener;
 import android.xwpeng.testipc.entity.Book;
+import android.xwpeng.testipc.service.PushService;
 
 /**
  * test receive remote service new book add notify

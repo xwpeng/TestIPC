@@ -1,4 +1,4 @@
-package android.xwpeng.testipc;
+package android.xwpeng.testipc.service;
 
 import android.app.Service;
 import android.content.Intent;

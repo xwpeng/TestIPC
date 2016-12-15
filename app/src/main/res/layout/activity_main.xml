@@ -84,5 +84,11 @@
             android:layout_height="60dp"
             android:text="test_tcp" />
 
+        <Button
+            android:id="@+id/main_test_binderpool"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="test_binderpool" />
+
     </LinearLayout>
 </ScrollView>

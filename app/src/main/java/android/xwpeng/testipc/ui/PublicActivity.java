@@ -1,9 +1,10 @@
-package android.xwpeng.testipc;
+package android.xwpeng.testipc.ui;
 
 import android.os.Bundle;
 import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.xwpeng.testipc.R;
 import android.xwpeng.testipc.util.ProcessUtil;
 
 /**

@@ -1,4 +1,4 @@
-package android.xwpeng.testipc;
+package android.xwpeng.testipc.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.xwpeng.testipc.IBookManager;
+import android.xwpeng.testipc.IOnNewBookArrivedListener;
 import android.xwpeng.testipc.entity.Book;
 import android.xwpeng.testipc.entity.User2;
 import android.xwpeng.testipc.util.ProcessUtil;

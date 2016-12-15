@@ -24,20 +24,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PublicActivity"
+            android:name=".ui.PublicActivity"
             android:process="com.xwpeng.global" />
-        <activity android:name=".NewBookReceiverActivity" />
+        <activity android:name=".ui.NewBookReceiverActivity" />
 
-        <activity android:name=".TcpClientActivity" />
+        <activity android:name=".ui.TcpClientActivity" />
+        <activity android:name=".ui.TBinderPoolActivity" />
 
 
         <service
-            android:name=".PushService"
+            android:name=".service.PushService"
             android:process=":pushcore" />
 
         <service
-            android:name=".TCPServerService"
+            android:name=".service.TCPServerService"
             android:process=":tcpServer" />
+
+        <service
+            android:name=".service.BinderPoolService"
+            android:process=":binderPool" />
     </application>
 
 </manifest>
