@@ -70,11 +70,6 @@ public class PoolManager {
             mBinderPool.asBinder().unlinkToDeath(mBinderPoolDeathRecipient, 0);
             mBinderPool = null;
             connectBinderPoolService();
-            try {
-                mConnectBinderPoolCountDownLatch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     };
 
